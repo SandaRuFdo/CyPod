@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════
-//  CyPod — Sri Lanka Cyber Dashboard
+//  CyberPod — Sri Lanka Cyber Dashboard
 //  Incident data sourced from FalconFeeds.io,
 //  Dark Web Informer, BreachForums screenshots,
 //  and verified news outlets.
