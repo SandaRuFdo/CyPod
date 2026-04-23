@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CyPod — Island Under Siege: Sri Lanka's Cyber Future</title>
+<meta name="description" content="Interactive podcast presentation covering Sri Lanka's cybersecurity incidents 2020–2026 with live evidence."/>
+<link rel="stylesheet" href="styles.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+</head>
+<body>
+<div id="scroll-progress"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo"><span class="dot"></span>CyPod</a>
+  <ul class="nav-links">
+    <li><a href="#stats">Stats</a></li>
+    <li><a href="#charts">Charts</a></li>
+    <li><a href="#criticality">Criticality</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#darkweb">Dark Web</a></li>
+    <li><a href="#evidence">Gov Sites</a></li>
+    <li><a href="#script">Episode</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero" class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">🎙️ CyPod — Special Investigation</div>
+    <h1>Island Under Siege</h1>
+    <p class="hero-sub">Sri Lanka's Cyber Future — 26 documented incidents, 16 dark web screenshots, live government site findings, and a nation racing to secure its digital infrastructure before the next attack.</p>
+    <div class="hero-stats">
+      <div><span class="hero-stat-num count-up" data-target="26" data-suffix="">0</span><span class="hero-stat-label">Named Incidents</span></div>
+      <div><span class="hero-stat-num count-up" data-target="18" data-suffix="">0</span><span class="hero-stat-label">Confirmed</span></div>
+      <div><span class="hero-stat-num count-up" data-target="16" data-suffix="">0</span><span class="hero-stat-label">Dark Web Screenshots</span></div>
+      <div><span class="hero-stat-num count-up" data-target="12650" data-suffix="+">0</span><span class="hero-stat-label">CERT Complaints 2025</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="section-header">
+    <div class="section-tag">// Key Metrics</div>
+    <h2 class="section-title">The Numbers That Matter</h2>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card red"><div class="stat-icon">💸</div><div class="stat-number">$2.5M</div><div class="stat-label">Stolen — Finance Ministry</div><div class="stat-detail">April 2026 · External Resources Dept · Foreign debt funds</div></div>
+    <div class="stat-card red"><div class="stat-icon">🗄️</div><div class="stat-number">1.9 TB</div><div class="stat-label">Cargills Bank Leak</div><div class="stat-detail">March 2025 · 1M+ files · Hunters International</div></div>
+    <div class="stat-card red"><div class="stat-icon">🌾</div><div class="stat-number">1.45M</div><div class="stat-label">Farmer Records Leaked</div><div class="stat-detail">Aug 2024 · Agrarian Dept · NIC numbers exposed</div></div>
+    <div class="stat-card orange"><div class="stat-icon">🔒</div><div class="stat-number">617 GB</div><div class="stat-label">Pensions Data Posted</div><div class="stat-detail">May 2025 · Cloak ransomware · Pensioner records</div></div>
+    <div class="stat-card orange"><div class="stat-icon">🛒</div><div class="stat-number">19.7M</div><div class="stat-label">WishQue Lines Leaked</div><div class="stat-detail">Apr 2025 · Names, emails, phones, credit cards</div></div>
+    <div class="stat-card orange"><div class="stat-icon">📧</div><div class="stat-number">5,000</div><div class="stat-label">Govt Emails Destroyed</div><div class="stat-detail">Sept 2023 · Exchange 2013 + zero backups</div></div>
+    <div class="stat-card red"><div class="stat-icon">⚠️</div><div class="stat-number">16</div><div class="stat-label">Dark Web Screenshots</div><div class="stat-detail">BreachForums · Ransomware portals · Forum listings</div></div>
+    <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-number">1.5M+</div><div class="stat-label">PayHere Records Exposed</div><div class="stat-detail">April 2022 · 65 GB · 36hr outage</div></div>
+    <div class="stat-card red"><div class="stat-icon">🌐</div><div class="stat-number">9</div><div class="stat-label">Gov Sites — "Hello World"</div><div class="stat-detail">Live evidence · Wiped or abandoned .gov.lk sites</div></div>
+    <div class="stat-card green"><div class="stat-icon">📋</div><div class="stat-number">2029</div><div class="stat-label">National Strategy Horizon</div><div class="stat-detail">NCSS 2025–2029 · Cabinet-approved July 2025</div></div>
+  </div>
+</section>
+
+<!-- CHARTS -->
+<section id="charts">
+  <div class="section-header">
+    <div class="section-tag">// Data Visualisation</div>
+    <h2 class="section-title">Incident Analysis</h2>
+  </div>
+  <div class="charts-grid">
+    <div class="chart-card"><div class="chart-title">Incidents by Year</div><div class="chart-subtitle">Confirmed vs Claimed/Unverified</div><div class="chart-canvas-wrap"><canvas id="chart-year"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">Attack Type Breakdown</div><div class="chart-subtitle">Distribution across all 26 incidents</div><div class="chart-canvas-wrap"><canvas id="chart-type"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">Sectors Targeted</div><div class="chart-subtitle">Government dominates the hit list</div><div class="chart-canvas-wrap"><canvas id="chart-sector"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">Severity Timeline</div><div class="chart-subtitle">1 (low) → 5 (critical) — trend is worsening</div><div class="chart-canvas-wrap"><canvas id="chart-severity"></canvas></div></div>
+  </div>
+</section>
+
+<!-- CRITICALITY DASHBOARD -->
+<section id="criticality">
+  <div class="section-header">
+    <div class="section-tag">// Deep Analysis — Criticality Dashboard</div>
+    <h2 class="section-title">Threat Landscape Intelligence</h2>
+    <p class="section-desc">Granular breakdown of threat actors, data volumes, attack evolution, and a complete incident register with criticality scoring.</p>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card"><div class="chart-title">Threat Actor Groups</div><div class="chart-subtitle">Named ransomware & threat groups targeting Sri Lanka</div><div class="chart-canvas-wrap"><canvas id="chart-actors"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">Data Volume Compromised</div><div class="chart-subtitle">Top incidents by confirmed/claimed data size</div><div class="chart-canvas-wrap"><canvas id="chart-volume"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">Confirmed vs Claimed — Severity</div><div class="chart-subtitle">Confidence level mapped against impact severity</div><div class="chart-canvas-wrap"><canvas id="chart-confidence"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">Attack Evolution</div><div class="chart-subtitle">How attack sophistication has escalated year over year</div><div class="chart-canvas-wrap"><canvas id="chart-evolution"></canvas></div></div>
+  </div>
+
+  <!-- FULL INCIDENT REGISTER -->
+  <div class="incident-register">
+    <div class="register-header">
+      <div class="register-title">📋 Full Incident Register — 26 Documented Attacks</div>
+      <div class="register-subtitle">Complete audit trail with criticality scoring, threat actors, data volumes, and evidence status</div>
+    </div>
+    <div class="register-scroll">
+      <table class="register-table" id="register-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Target</th>
+            <th>Sector</th>
+            <th>Type</th>
+            <th>Threat Actor</th>
+            <th>Data Volume</th>
+            <th>Severity</th>
+            <th>Status</th>
+            <th>Evidence</th>
+          </tr>
+        </thead>
+        <tbody id="register-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- RISK MATRIX -->
+  <div class="risk-matrix-wrap">
+    <div class="register-header">
+      <div class="register-title">🎯 Risk Criticality Matrix</div>
+      <div class="register-subtitle">Mapping each incident's impact level against data sensitivity</div>
+    </div>
+    <div class="risk-grid" id="risk-grid"></div>
+    <div class="risk-legend">
+      <span class="risk-key"><span class="risk-dot" style="background:#ff4444"></span> Critical (Sev 5)</span>
+      <span class="risk-key"><span class="risk-dot" style="background:#ff8c00"></span> High (Sev 4)</span>
+      <span class="risk-key"><span class="risk-dot" style="background:#f59e0b"></span> Medium (Sev 3)</span>
+      <span class="risk-key"><span class="risk-dot" style="background:#00d4ff"></span> Low (Sev 1-2)</span>
+      <span class="risk-key"><span class="risk-dot" style="background:#475569; border: 1px dashed #94a3b8"></span> Claimed/Unverified</span>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="section-header">
+    <div class="section-tag">// Incident Log</div>
+    <h2 class="section-title">Full Incident Timeline</h2>
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All Incidents</button>
+    <button class="filter-btn" data-filter="confirmed">✓ Confirmed Only</button>
+    <button class="filter-btn" data-filter="claimed">? Claimed / Unverified</button>
+  </div>
+  <div class="timeline" id="timeline-container"></div>
+</section>
+
+<!-- DARK WEB & FORUM EVIDENCE -->
+<section id="darkweb">
+  <div class="section-header">
+    <div class="section-tag">// Dark Web & Forum Evidence — FalconFeeds.io</div>
+    <h2 class="section-title">Underground Forum Screenshots</h2>
+    <p class="section-desc">Real screenshots from <strong>BreachForums</strong>, <strong>ransomware leak portals</strong>, and <strong>dark web listings</strong> — sourced via <span style="color:var(--accent-cyan)">@FalconFeedsio</span> on X/Twitter. Each image below is a direct capture from the original forum posts where Sri Lankan data was listed for sale or leaked.</p>
+  </div>
+
+  <div class="evidence-grid">
+
+    <div class="evidence-card critical">
+      <div class="evidence-header">
+        <span class="evidence-badge critical-badge">🔴 CRITICAL</span>
+        <span class="evidence-domain">pubad.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('HGK36IGaQAAV9WM.jpg','Ministry of Public Administration — Dark Web Forum')">
+        <img src="HGK36IGaQAAV9WM.jpg" alt="Ministry of Public Administration dark web listing" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Ministry of Public Administration</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">$200 Price Tag</span>
+          <span class="finding-tag red-tag">NIC Numbers</span>
+          <span class="finding-tag orange-tag">Hashed Passwords</span>
+          <span class="finding-tag orange-tag">Apr 17, 2026</span>
+        </div>
+        <p class="evidence-note">Full names, contact details, national IDs, job info, usernames, hashed passwords, and internal government circulars listed by actor 'whi6ami'.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card critical">
+      <div class="evidence-header">
+        <span class="evidence-badge critical-badge">🔴 CRITICAL</span>
+        <span class="evidence-domain">health.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('GyFrxj_bUAAraz_.jpg','Ministry of Health — BreachForums')">
+        <img src="GyFrxj_bUAAraz_.jpg" alt="Ministry of Health data breach listing" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Ministry of Health — 398,769 Records</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">$300 Sale Price</span>
+          <span class="finding-tag red-tag">$3,000 Ransom</span>
+          <span class="finding-tag orange-tag">JSON Format</span>
+          <span class="finding-tag orange-tag">Aug 2025</span>
+        </div>
+        <p class="evidence-note">Actor 'Kazu' listed 398,769 records from health.gov.lk on BreachForums. Sale price $300, ransom demand $3,000. No official government response.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card critical">
+      <div class="evidence-header">
+        <span class="evidence-badge critical-badge">🔴 CRITICAL</span>
+        <span class="evidence-domain">pensions.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('Gr79QgwW8AAslZZ.jpg','Department of Pensions — Cloak Ransomware')">
+        <img src="Gr79QgwW8AAslZZ.jpg" alt="Pensions Cloak ransomware leak" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Department of Pensions — Cloak Ransomware</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">617 GB Public</span>
+          <span class="finding-tag red-tag">392 Views</span>
+          <span class="finding-tag orange-tag">Expired Listing</span>
+        </div>
+        <p class="evidence-note">Cloak ransomware portal screenshot showing PENSIONS.GOV.LK with 617GB data marked as "Public" — pensioner records freely downloadable.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card critical">
+      <div class="evidence-header">
+        <span class="evidence-badge critical-badge">🔴 CRITICAL</span>
+        <span class="evidence-domain">airport.lk</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('GR9s43TX0AAp2Rb.jpg','Airport & Aviation Services — BreachForums')">
+        <img src="GR9s43TX0AAp2Rb.jpg" alt="Airport database breach" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Airport & Aviation Services Sri Lanka</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">7,083 Records</span>
+          <span class="finding-tag red-tag">Passport Numbers</span>
+          <span class="finding-tag orange-tag">Jul 8, 2024</span>
+        </div>
+        <p class="evidence-note">BreachForums post with slot IDs, login IDs, passenger details, passport numbers, quarantine records, and vaccine certificates.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge warn-badge">🟡 HIGH</span>
+        <span class="evidence-domain">cargillsbank.com</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('GmfbOcEa0AAaEIq.jpg','Cargills Bank — Hunters International')">
+        <img src="GmfbOcEa0AAaEIq.jpg" alt="Cargills Bank Hunters International" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Cargills Bank — Hunters International</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">1.9 TB Data</span>
+          <span class="finding-tag orange-tag">$70M Revenue</span>
+          <span class="finding-tag orange-tag">Mar 20, 2025</span>
+        </div>
+        <p class="evidence-note">Hunters International ransomware portal showing Cargills Bank with countdown timer. Revenue $70M, 800 employees, 0/1 disclosures.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge warn-badge">🟡 HIGH</span>
+        <span class="evidence-domain">wishque.com</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('GntjluYa4AAcMnb.jpg','WishQue — BreachForums')">
+        <img src="GntjluYa4AAcMnb.jpg" alt="WishQue database breach" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">WishQue — Full Database Leaked</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">19.7M Lines</span>
+          <span class="finding-tag red-tag">Credit Cards</span>
+          <span class="finding-tag orange-tag">Apr 4, 2025</span>
+        </div>
+        <p class="evidence-note">BreachForums: "In 30 March 2025 Wishque.com Was Breached." Full SQL dump with 19.7M lines including names, emails, phones, credit card data.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge warn-badge">🟡 HIGH</span>
+        <span class="evidence-domain">healthdept.nw.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('G5GNi7db0AAqI97.jpg','Provincial Health Services — Kryptos Ransomware')">
+        <img src="G5GNi7db0AAqI97.jpg" alt="Kryptos ransomware health department" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Provincial Health Services (NW) — Kryptos</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">145 Institutions</span>
+          <span class="finding-tag red-tag">850 Medical Officers</span>
+          <span class="finding-tag orange-tag">Nov 7, 2025</span>
+        </div>
+        <p class="evidence-note">Kryptos ransomware portal with countdown: "UNLOCK IN 9d 19h" — 145 institutions, 439 field clinics, 850 medical officers under this department.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge info-badge">🔵 MEDIUM</span>
+        <span class="evidence-domain">vsone.lk</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('Gr7mmeSWgAAgO31.jpg','VS One Technology — Nova Ransomware')">
+        <img src="Gr7mmeSWgAAgO31.jpg" alt="VS One Nova ransomware" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">VS One Technology — Nova Ransomware</div>
+        <div class="evidence-findings">
+          <span class="finding-tag orange-tag">20 GB Data</span>
+          <span class="finding-tag blue-tag">IT Services</span>
+          <span class="finding-tag orange-tag">May 27, 2025</span>
+        </div>
+        <p class="evidence-note">Nova ransomware leak portal showing VS One with "Time Left: 8d 20h" countdown. IT solutions provider based in Sri Lanka.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge info-badge">🔵 MEDIUM</span>
+        <span class="evidence-domain">lalengineering.com</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('GM_CyeGWcAE5Gnx.jpg','Lal Engineering — RansomHub')">
+        <img src="GM_CyeGWcAE5Gnx.jpg" alt="Lal Engineering RansomHub" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Lal Construction & Engineering — RansomHub</div>
+        <div class="evidence-findings">
+          <span class="finding-tag orange-tag">100 GB Data</span>
+          <span class="finding-tag blue-tag">Construction</span>
+          <span class="finding-tag orange-tag">May 7, 2024</span>
+        </div>
+        <p class="evidence-note">RansomHub portal: 210 visits, 100GB, 19 days countdown. "Published: False" — data was used as extortion leverage.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge info-badge">🔵 MEDIUM</span>
+        <span class="evidence-domain">nkartravelhouse.com</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('HErRq7PbgAAvAkE.jpg','NKAR Travels — Payload Ransomware')">
+        <img src="HErRq7PbgAAvAkE.jpg" alt="NKAR Travels Payload ransomware" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">NKAR Travels & Tours — Payload Ransomware</div>
+        <div class="evidence-findings">
+          <span class="finding-tag orange-tag">60 GB Data</span>
+          <span class="finding-tag blue-tag">Tourism</span>
+          <span class="finding-tag orange-tag">Mar 30, 2026</span>
+        </div>
+        <p class="evidence-note">Payload ransomware: "07d 04h 28m · 60 GB · ↗ site" — group intended to publish within 7-8 days.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge info-badge">🔵 MEDIUM</span>
+        <span class="evidence-domain">cbsl.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('Fpyw7axXwAEWhnW.png','Central Bank of Sri Lanka — Admin Leak')">
+        <img src="Fpyw7axXwAEWhnW.png" alt="CBSL admin data leak" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Central Bank of Sri Lanka — Admin Leak Claim</div>
+        <div class="evidence-findings">
+          <span class="finding-tag orange-tag">32 Admin Accounts</span>
+          <span class="finding-tag blue-tag">Financial Sector</span>
+          <span class="finding-tag orange-tag">Feb 25, 2023</span>
+        </div>
+        <p class="evidence-note">Hacker forum claim: 32 admin credentials from cbsl.gov.lk. Screenshot shows CBSL Twitter profile alongside alleged breach data.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge info-badge">🔵 MEDIUM</span>
+        <span class="evidence-domain">moe.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('FlCwX8_aEAAnaRc.jpg','Ministry of Education — Forum Listing')">
+        <img src="FlCwX8_aEAAnaRc.jpg" alt="Ministry of Education data sale" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Ministry of Education — kelvinsecurity</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">12,398 Files</span>
+          <span class="finding-tag red-tag">Admin Access</span>
+          <span class="finding-tag orange-tag">Dec 28, 2022</span>
+        </div>
+        <p class="evidence-note">Actor 'kelvinsecurity' (Rep: 537) listed admin login access, XLS/SQL databases, personal documents PDFs. 10.2 GB total.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card critical">
+      <div class="evidence-header">
+        <span class="evidence-badge critical-badge">🔴 CRITICAL</span>
+        <span class="evidence-domain">agrariandept.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('incident-000500.png','Dept. of Agrarian Development — BreachForums')">
+        <img src="incident-000500.png" alt="Agrarian Department farmer database breach" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Dept. of Agrarian Development — 1.45M Farmer Records</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">1,450,000 Farmers</span>
+          <span class="finding-tag red-tag">NIC Numbers</span>
+          <span class="finding-tag orange-tag">GOD User: SilkFin</span>
+          <span class="finding-tag orange-tag">Aug 22, 2024</span>
+        </div>
+        <p class="evidence-note">BreachForums post by 'SilkFin' (SILKFIN AGENCY): full farmer database with NIC numbers. "Database Covers over 1,450,000 farmers and associated information."</p>
+      </div>
+    </div>
+
+    <div class="evidence-card critical">
+      <div class="evidence-header">
+        <span class="evidence-badge critical-badge">🔴 CRITICAL</span>
+        <span class="evidence-domain">treasury.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('srilanka.webp','Ministry of Finance — Full Database + Root Access')">
+        <img src="srilanka.webp" alt="Ministry of Finance full database and server root access" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Ministry of Finance — FULL DATABASE + ROOT ACCESS</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">$4,000 BTC</span>
+          <span class="finding-tag red-tag">Plain Text Passwords</span>
+          <span class="finding-tag red-tag">RDP + SSH Root</span>
+          <span class="finding-tag orange-tag">Sep 2025</span>
+        </div>
+        <p class="evidence-note">"FULL DATABASE & SERVER ROOT ACCESS" — includes govt IDs, salary grades, domain admin privileges. Actor joined Sep 2025, 1 post, 0 reputation.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card critical">
+      <div class="evidence-header">
+        <span class="evidence-badge critical-badge">🔴 CRITICAL</span>
+        <span class="evidence-domain">edudept.np.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('04-03-2026-09-e1775212047790.webp','Provincial Education Northern — Data Sale')">
+        <img src="04-03-2026-09-e1775212047790.webp" alt="Northern Province Education breach" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Provincial Dept. of Education (Northern Province)</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">Teacher Details</span>
+          <span class="finding-tag red-tag">School Lists</span>
+          <span class="finding-tag orange-tag">$50 Price</span>
+          <span class="finding-tag orange-tag">Apr 3, 2026</span>
+        </div>
+        <p class="evidence-note">EMIS (Education Management Information System) data: teacher personal details, school contact databases, student records. Full SQL samples visible in screenshot.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge warn-badge">🟡 HIGH</span>
+        <span class="evidence-domain">health.gov.lk (Kazu)</span>
+      </div>
+      <div class="evidence-img-wrap" onclick="openLightbox('1342598729873659872312.webp','Ministry of Health — Actor Kazu (GOD User)')">
+        <img src="1342598729873659872312.webp" alt="Ministry of Health Kazu GOD user" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Ministry of Health — Actor 'Kazu' (GOD User)</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">GOD User Status</span>
+          <span class="finding-tag red-tag">398,769 Records</span>
+          <span class="finding-tag orange-tag">Rep: 35</span>
+          <span class="finding-tag orange-tag">Aug 2025</span>
+        </div>
+        <p class="evidence-note">Second angle of the health.gov.lk breach showing actor 'Kazu' with GOD status, 39 posts, Rep 35. "SELLING" tag on the official Health Portal breach listing.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="evidence-summary-box">
+    <div class="es-title">📊 Dark Web Evidence Summary</div>
+    <div class="es-grid">
+      <div class="es-item"><span class="es-num red">6</span><span class="es-label">Ransomware groups (Cloak, Hunters Int'l, Nova, RansomHub, Kryptos, Payload)</span></div>
+      <div class="es-item"><span class="es-num red">7</span><span class="es-label">Government institutions breached</span></div>
+      <div class="es-item"><span class="es-num orange">5</span><span class="es-label">BreachForums data sales</span></div>
+      <div class="es-item"><span class="es-num blue">16</span><span class="es-label">Total evidence screenshots</span></div>
+    </div>
+    <p class="es-note">⚡ Screenshots sourced from <strong>@FalconFeedsio</strong> and <strong>Daily Dark Web</strong> — verified cyber threat intelligence sources monitoring dark web forums, ransomware portals, and underground marketplaces.</p>
+  </div>
+</section>
+
+<!-- EVIDENCE SECTION -->
+<section id="evidence">
+  <div class="section-header">
+    <div class="section-tag">// Live Field Evidence — April 2026</div>
+    <h2 class="section-title">The "Hello World" Problem</h2>
+    <p class="section-desc">During research for this episode, 9 active Sri Lankan <code>.gov.lk</code> websites were found displaying WordPress's default <strong>"Hello World!"</strong> post — a telltale sign of sites that were either <span class="highlight-red">wiped by attackers</span>, freshly reinstalled, or completely abandoned with no content ever added. These are live government websites serving citizens today.</p>
+  </div>
+
+  <div class="evidence-alert">
+    <span class="alert-icon">🚨</span>
+    <div>
+      <strong>What does "Hello World!" mean on a government site?</strong><br>
+      WordPress auto-creates a "Hello World!" post when first installed. Finding it on a live <code>.gov.lk</code> domain means the site has been reset, wiped, or was never properly built — all of which expose citizens and government data to serious risk.
+    </div>
+  </div>
+
+  <div class="evidence-grid" id="evidence-grid">
+
+    <div class="evidence-card critical">
+      <div class="evidence-header">
+        <span class="evidence-badge critical-badge">🔴 CRITICAL</span>
+        <span class="evidence-domain">rti.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap">
+        <img src="photo_2026-04-23_19-06-31.jpg" alt="RTI Sri Lanka Hello World" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Right to Information Commission Sri Lanka</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">⚠️ Not Secure (HTTP)</span>
+          <span class="finding-tag red-tag">Hello World Default Post</span>
+        </div>
+        <p class="evidence-note">Doubly alarming — no HTTPS AND reset to default. The RTI Commission handles sensitive public information requests from citizens.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card critical">
+      <div class="evidence-header">
+        <span class="evidence-badge critical-badge">🔴 HIGH</span>
+        <span class="evidence-domain">aeb.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap">
+        <img src="photo_2026-04-23_19-06-43.jpg" alt="Atomic Energy Board Hello World" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Sri Lanka Atomic Energy Board</div>
+        <div class="evidence-findings">
+          <span class="finding-tag red-tag">Unauthorised Text "oka" Added</span>
+          <span class="finding-tag red-tag">Hello World Default Post</span>
+        </div>
+        <p class="evidence-note">Most alarming case — someone appended the word "oka" to the default post, indicating a person with WordPress admin access tampered with the site. Atomic Energy infrastructure.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge warn-badge">🟡 HIGH</span>
+        <span class="evidence-domain">csth.health.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap">
+        <img src="photo_2026-04-23_19-06-39.jpg" alt="Colombo South Teaching Hospital Hello World" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Colombo South Teaching Hospital — Ministry of Health</div>
+        <div class="evidence-findings">
+          <span class="finding-tag orange-tag">Healthcare Sector</span>
+          <span class="finding-tag red-tag">Hello World Default Post</span>
+        </div>
+        <p class="evidence-note">A major public hospital under the Ministry of Health, whose data was already the subject of a dark web sale claim in August 2025.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge warn-badge">🟡 HIGH</span>
+        <span class="evidence-domain">pdhsnc.health.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap">
+        <img src="photo_2026-04-23_19-06-37.jpg" alt="Provincial Health Training Centre Hello World" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Provincial Health Training Centre (North Central)</div>
+        <div class="evidence-findings">
+          <span class="finding-tag orange-tag">Healthcare Sector</span>
+          <span class="finding-tag red-tag">Hello World Default Post</span>
+        </div>
+        <p class="evidence-note">Second health.gov.lk subdomain found in default state — suggesting a systemic issue across the Ministry of Health's web infrastructure.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge info-badge">🔵 MEDIUM</span>
+        <span class="evidence-domain">probation.wp.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap">
+        <img src="photo_2026-04-23_19-06-33.jpg" alt="Dept of Probation Hello World" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Dept. of Probation & Child Care Services — Western Province</div>
+        <div class="evidence-findings">
+          <span class="finding-tag blue-tag">Child Services Data</span>
+          <span class="finding-tag red-tag">Hello World Default Post</span>
+        </div>
+        <p class="evidence-note">A department handling child welfare data running a bare WordPress install. Sensitive citizen data at risk.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge info-badge">🔵 MEDIUM</span>
+        <span class="evidence-domain">decma.sg.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap">
+        <img src="photo_2026-04-23_19-06-40.jpg" alt="DeCMA Hello World" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">DeCMA — Sabaragamuwa Province</div>
+        <div class="evidence-findings">
+          <span class="finding-tag orange-tag">Since Oct 2021</span>
+          <span class="finding-tag red-tag">Hello World Default Post</span>
+        </div>
+        <p class="evidence-note">Last post authored by "MGSAMITHA" on October 15, 2021 — this site has been in default state for over 4 years with no updates.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge info-badge">🔵 MEDIUM</span>
+        <span class="evidence-domain">landmin.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap">
+        <img src="photo_2026-04-23_19-06-40 (2).jpg" alt="Ministry of Tourism and Lands Hello World" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Ministry of Tourism & Lands — Lands Section</div>
+        <div class="evidence-findings">
+          <span class="finding-tag blue-tag">Ministry Level</span>
+          <span class="finding-tag red-tag">Hello World Default Post</span>
+        </div>
+        <p class="evidence-note">A ministry-level domain serving the public in default WordPress state — land records and public services data potentially exposed.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge info-badge">🔵 MEDIUM</span>
+        <span class="evidence-domain">dtet.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap">
+        <img src="photo_2026-04-23_19-06-41.jpg" alt="DTET Hello World" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Dept. of Technical Education & Training</div>
+        <div class="evidence-findings">
+          <span class="finding-tag blue-tag">Education Sector</span>
+          <span class="finding-tag red-tag">Hello World Default Post</span>
+        </div>
+        <p class="evidence-note">Technical training department site in default state — student and institutional data at risk.</p>
+      </div>
+    </div>
+
+    <div class="evidence-card">
+      <div class="evidence-header">
+        <span class="evidence-badge info-badge">🔵 MEDIUM</span>
+        <span class="evidence-domain">clg.ep.gov.lk</span>
+      </div>
+      <div class="evidence-img-wrap">
+        <img src="photo_2026-04-23_19-06-42.jpg" alt="Eastern Province Local Gov Hello World" loading="lazy"/>
+        <div class="evidence-overlay">Click to expand</div>
+      </div>
+      <div class="evidence-body">
+        <div class="evidence-org">Dept. of Local Government — Eastern Province</div>
+        <div class="evidence-findings">
+          <span class="finding-tag blue-tag">Provincial Government</span>
+          <span class="finding-tag red-tag">Hello World Default Post</span>
+        </div>
+        <p class="evidence-note">Eastern Province local government infrastructure running a bare default WordPress installation accessible to the public.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt=""/>
+    <div id="lightbox-caption"></div>
+  </div>
+
+  <div class="evidence-summary-box">
+    <div class="es-title">🔍 Pattern Analysis</div>
+    <div class="es-grid">
+      <div class="es-item"><span class="es-num red">2</span><span class="es-label">Healthcare sites (health.gov.lk)</span></div>
+      <div class="es-item"><span class="es-num red">1</span><span class="es-label">Atomic Energy Board</span></div>
+      <div class="es-item"><span class="es-num orange">1</span><span class="es-label">RTI Commission (+ No HTTPS)</span></div>
+      <div class="es-item"><span class="es-num orange">1</span><span class="es-label">Ministry of Tourism & Lands</span></div>
+      <div class="es-item"><span class="es-num blue">4</span><span class="es-label">Provincial/Departmental sites</span></div>
+      <div class="es-item"><span class="es-num red">1</span><span class="es-label">Site tampered (unknown text added)</span></div>
+    </div>
+    <p class="es-note">⚡ These findings directly support the research report's core conclusion: Sri Lanka's government web infrastructure suffers from <strong>systemic neglect</strong> — unpatched software, abandoned sites, and no lifecycle management across ministries and provinces.</p>
+  </div>
+</section>
+
+<!-- PODCAST SCRIPT -->
+<section id="script">
+  <div class="section-header">
+    <div class="section-tag">// Episode Script</div>
+    <h2 class="section-title">Island Under Siege — Full Episode</h2>
+  </div>
+  <div class="script-reader">
+    <div class="script-header">
+      <div class="script-controls">
+        <div class="script-dot" style="background:#ff5f57"></div>
+        <div class="script-dot" style="background:#febc2e"></div>
+        <div class="script-dot" style="background:#28c840"></div>
+      </div>
+      <span style="font-size:0.8rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">podcast_script.md — ~18 min runtime</span>
+    </div>
+    <div class="script-body">
+      <div class="script-segment">
+        <div class="segment-time">00:00 — Intro</div>
+        <div class="segment-title">🎙️ Cold Open</div>
+        <div class="script-text">
+          <div class="sfx">[SFX: ambient keyboard clicks, low hum, sharp alert beep]</div><br>
+          Picture this. It's a Tuesday morning. A pensioner in Colombo logs into the government portal to check her monthly payment. The site is down. Meanwhile, <strong>617 gigabytes of data</strong> — her name, her NIC number, her pension records — are already sitting on a dark web leak site, posted by a ransomware gang called <em>Cloak</em>.<br><br>
+          She doesn't know. The government barely knows. And Sri Lanka's cybersecurity laws? Still not fully switched on.<br><br>
+          Welcome to CyPod. This is <strong>"Island Under Siege — Sri Lanka's Cyber Future."</strong>
+        </div>
+      </div>
+      <div class="script-segment">
+        <div class="segment-time">02:00 — Segment 1</div>
+        <div class="segment-title">📊 Setting the Scene</div>
+        <div class="script-text">
+          Between December 2022 and April 2026 — just over three years — we've documented <strong>26 named cybersecurity incidents</strong> tied to Sri Lankan organisations. Eighteen confirmed. Eight claim-grade. And we have <strong>16 dark web screenshots</strong> — actual captures from BreachForums, ransomware portals, and underground data markets — to prove it.<br><br>
+          Sri Lanka CERT recorded over <strong>12,650 complaints</strong> in 2025 alone. Kaspersky detected over <strong>9.15 million internet-borne threats</strong> targeting Sri Lankan devices in 2025 — putting us <em>20th globally</em> for web-borne cyber risk.<br><br>
+          And during the research for this episode, we found something even more alarming. <strong>Nine active government .gov.lk websites</strong> — including the Atomic Energy Board and two Ministry of Health sites — displaying WordPress's default "Hello World!" post. Sites that were either wiped, reset, or abandoned entirely.
+        </div>
+      </div>
+      <div class="script-segment">
+        <div class="segment-time">04:30 — Segment 2</div>
+        <div class="segment-title">⏮️ The Early Days: 2020–2022</div>
+        <div class="script-text">
+          <strong>May 2020 — Sri Lanka Telecom.</strong> REvil attempted intrusion — contained, but a warning shot.<br><br>
+          <strong>February 2021 — LK Domain Registry.</strong> DNS records changed. Government sites silently redirected. A demonstration of control.<br><br>
+          <strong>April 2022 — PayHere.</strong> <strong>1.5 million records</strong> and <strong>65 gigabytes</strong> of payment data exposed. 36 hours of outage.<br><br>
+          <strong>December 2022 — Ministry of Education.</strong> An actor called 'kelvinsecurity' lists <strong>12,398 files</strong> and admin login access on a hacker forum — 10.2 gigabytes of government education data for sale. And we have the screenshot to prove it.<br><br>
+          The pattern in this era: defacement, redirection, data theft. That was about to change.
+        </div>
+      </div>
+      <div class="script-segment">
+        <div class="segment-time">08:00 — Segment 3</div>
+        <div class="segment-title">⚡ The Turning Point: 2023</div>
+        <div class="script-text">
+          <strong>September 2023.</strong> Ransomware hits the <strong>gov.lk email system</strong>. ICTA confirmed: <strong>5,000 government email accounts</strong> affected. Three months of government communications — gone.<br><br>
+          Why? Microsoft <strong>Exchange 2013</strong> (end-of-life since 2018) and <strong>no offline backups</strong>. For a national government email system. This is like a bank vault with one key and no alarm.
+        </div>
+      </div>
+      <div class="script-segment">
+        <div class="segment-time">10:30 — Segment 4</div>
+        <div class="segment-title">🌪️ The Storm: 2025</div>
+        <div class="script-text">
+          <strong>March 2025 — Cargills Bank.</strong> <strong>1.9 terabytes</strong>, 1M+ files exfiltrated by Hunters International.<br><br>
+          <strong>May 2025 — Department of Pensions.</strong> Cloak ransomware. <strong>617 gigabytes</strong> of pensioner data posted publicly on a dark web portal. 392 views. We have that screenshot.<br><br>
+          <strong>May 2025 — VS One Technology.</strong> Nova ransomware. 20 gigabytes. Countdown timer ticking.<br><br>
+          <strong>June 2025 — NWSDB.</strong> SMS gateway hijacked. Bitcoin extortion messages sent from the water board's own trusted number.<br><br>
+          <strong>August 2025 — Ministry of Health.</strong> A GOD-status user called 'Kazu' lists 398,769 patient records from health.gov.lk for $300. Ransom demand: $3,000. No government response. We have two separate screenshots of that listing.<br><br>
+          <strong>September 2025 — Ministry of Finance.</strong> And then the most alarming: someone lists the <em>entire Ministry of Finance database</em> AND <strong>full RDP and SSH root access</strong> to core government servers for $4,000 in Bitcoin. Plain text passwords. Domain admin privileges. Data on thousands of government officials. We have the forum post screenshot.
+        </div>
+      </div>
+      <div class="script-segment">
+        <div class="segment-time">12:30 — Segment 5</div>
+        <div class="segment-title">🌐 The "Hello World" Problem — Live Evidence</div>
+        <div class="script-text">
+          But here's something we found that isn't in any threat report. During research for this episode, we manually checked a cross-section of <strong>.gov.lk websites</strong>. What we found was extraordinary.<br><br>
+          Nine government websites — including the <strong>Sri Lanka Atomic Energy Board</strong>, the <strong>RTI Commission</strong>, two <strong>Ministry of Health</strong> subdomains, and provincial government sites — were all showing WordPress's default <strong>"Hello World!"</strong> post.<br><br>
+          That's the page WordPress shows when you first install it and haven't built anything yet. On a live government domain, it means one of three things: the site was <em>wiped by an attacker</em>, it was reset and never rebuilt, or it was never properly built in the first place.<br><br>
+          The most alarming case: <strong>aeb.gov.lk</strong> — the Atomic Energy Board — had the word <em>"oka"</em> appended to the default post. Someone with admin access to that WordPress installation typed into it. And <strong>rti.gov.lk</strong> — the Right to Information Commission — was running without HTTPS, flagged "Not Secure" by the browser, while showing the same default page.<br><br>
+          This is not a sophisticated nation-state attack. This is basic negligence at scale.
+        </div>
+      </div>
+      <div class="script-segment">
+        <div class="segment-time">14:30 — Segment 6</div>
+        <div class="segment-title">🔍 The Pattern</div>
+        <div class="script-text">
+          The same failures, again and again:<br><br>
+          🔴 <strong>Unpatched software</strong> — Exchange 2013, outdated plugins, stale WordPress installs<br>
+          🔴 <strong>No backups</strong> — or backups on the same compromised network<br>
+          🔴 <strong>Abandoned infrastructure</strong> — sites in default state for years<br>
+          🔴 <strong>No HTTPS</strong> — government sites running over plain HTTP in 2026<br>
+          🔴 <strong>No asset lifecycle management</strong> — nobody asking: who owns this? when was it last updated?<br><br>
+          And attackers have noticed. From local defacement groups in 2020–2022 to international ransomware-as-a-service operations and underground data brokers by 2025–2026.
+        </div>
+      </div>
+      <div class="script-segment">
+        <div class="segment-time">16:00 — Segment 7</div>
+        <div class="segment-title">🛡️ Policy & The Future</div>
+        <div class="script-text">
+          The <strong>Personal Data Protection Act</strong> (2022), <strong>Data Protection Authority</strong> (2023), and <strong>National Cyber Security Strategy 2025–2029</strong> (Cabinet-approved July 2025) show genuine intent.<br><br>
+          But the gap between law on paper and a patched government server remains wide. Sri Lanka has the laws. It has the strategy. The race now is between implementing those protections and the next attacker who finds a forgotten server — or a government website still showing "Hello World."
+        </div>
+      </div>
+      <div class="script-segment">
+        <div class="segment-time">18:00 — Outro</div>
+        <div class="segment-title">🎙️ Closing</div>
+        <div class="script-text">
+          That pensioner in Colombo? She got her payment eventually. But somewhere on the dark web, her data is still there. A farmer in Anuradhapura? His NIC number is in a leaked database of 1.45 million records. And nine government websites are still showing "Hello World."<br><br>
+          This is CyPod. Stay curious, stay secure.<br><br>
+          <div class="sfx">[SFX: alert beep → fade to low hum → silence]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>CyPod · Research: 26 incidents (2020–2026) · 16 dark web screenshots · 9 exposed .gov.lk sites · Sri Lanka CERT · PDPA / DPA · NCSS 2025–2029</p>
+  <p style="margin-top:0.5rem;">Evidence: FalconFeeds.io · Daily Dark Web · BreachForums · Ransomware portals · Field research · April 23, 2026</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+// Evidence section lightbox (for cards without onclick)
+document.querySelectorAll('.evidence-img-wrap:not([onclick])').forEach(wrap => {
+  wrap.addEventListener('click', () => {
+    const img = wrap.querySelector('img');
+    const org = wrap.closest('.evidence-card').querySelector('.evidence-org').textContent;
+    openLightbox(img.src, org);
+  });
+});
+</script>
+</body>
+</html>

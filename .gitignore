@@ -1,0 +1,15 @@
+# Editor files
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Research notes (keep private)
+deep-research-report*.md
+Falconfeeds.md
+dailydarkweb.md
+podcast_script.md
