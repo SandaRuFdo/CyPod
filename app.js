@@ -363,9 +363,17 @@ function renderTimeline(filter = 'all') {
 }
 
 function openLightbox(src, caption) {
-  document.getElementById('lightbox-img').src = src;
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = src;
   document.getElementById('lightbox-caption').textContent = caption;
-  document.getElementById('lightbox').classList.add('active');
+  // Charts (data URLs) get stretched to fill viewport
+  if (src.startsWith('data:')) {
+    img.classList.add('chart-zoom');
+  } else {
+    img.classList.remove('chart-zoom');
+  }
+  lb.classList.add('active');
 }
 
 function closeLightbox() {
@@ -663,9 +671,20 @@ function initChartZoom() {
     card.addEventListener('click', () => {
       const title = card.querySelector('.chart-title')?.textContent || 'Chart';
       const subtitle = card.querySelector('.chart-subtitle')?.textContent || '';
-      // Convert chart canvas to a high-res image
-      const dataUrl = canvas.toDataURL('image/png', 1.0);
-      openLightbox(dataUrl, title + ' — ' + subtitle);
+      // Create a high-res offscreen copy
+      const chart = Chart.getChart(canvas);
+      if (chart) {
+        const scale = 3;
+        const offscreen = document.createElement('canvas');
+        offscreen.width = canvas.width * scale;
+        offscreen.height = canvas.height * scale;
+        const offCtx = offscreen.getContext('2d');
+        offCtx.scale(scale, scale);
+        offCtx.drawImage(canvas, 0, 0);
+        openLightbox(offscreen.toDataURL('image/png', 1.0), title + ' — ' + subtitle);
+      } else {
+        openLightbox(canvas.toDataURL('image/png', 1.0), title + ' — ' + subtitle);
+      }
     });
   });
 }

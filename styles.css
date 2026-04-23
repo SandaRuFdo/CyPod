@@ -719,6 +719,7 @@ footer a { color: var(--accent-cyan); text-decoration: none; }
 }
 .lightbox.active { display: flex; }
 .lightbox img { max-width: 90vw; max-height: 80vh; border-radius: 12px; box-shadow: 0 0 60px rgba(0,212,255,0.2); border: 1px solid rgba(0,212,255,0.3); }
+.lightbox img.chart-zoom { width: 90vw; max-width: 1200px; height: auto; max-height: 85vh; object-fit: contain; image-rendering: -webkit-optimize-contrast; }
 #lightbox-caption { color: var(--text-secondary); font-size: 0.85rem; }
 
 /* ── EVIDENCE SUMMARY ── */
