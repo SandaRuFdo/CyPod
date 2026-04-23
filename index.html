@@ -696,6 +696,17 @@
     <div id="lightbox-caption"></div>
   </div>
 
+  <!-- CHART ZOOM MODAL -->
+  <div id="chart-modal" class="chart-modal" onclick="closeChartModal(event)">
+    <div class="chart-modal-inner" onclick="event.stopPropagation()">
+      <button class="chart-modal-close" onclick="closeChartModal()">&times;</button>
+      <div class="chart-modal-title" id="chart-modal-title"></div>
+      <div class="chart-modal-canvas-wrap">
+        <canvas id="chart-modal-canvas"></canvas>
+      </div>
+    </div>
+  </div>
+
   <div class="evidence-summary-box">
     <div class="es-title">🔍 Pattern Analysis</div>
     <div class="es-grid">

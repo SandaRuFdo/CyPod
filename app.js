@@ -655,6 +655,57 @@ function buildRiskMatrix() {
   });
 }
 
+// ── CHART ZOOM MODAL ──
+const chartRegistry = {};
+let modalChart = null;
+
+function registerChart(canvasId, builderFn) {
+  chartRegistry[canvasId] = builderFn;
+}
+
+function openChartModal(canvasId) {
+  const card = document.getElementById(canvasId)?.closest('.chart-card');
+  const title = card?.querySelector('.chart-title')?.textContent || '';
+  const subtitle = card?.querySelector('.chart-subtitle')?.textContent || '';
+  
+  document.getElementById('chart-modal-title').innerHTML = title + (subtitle ? `<span style="display:block;font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem;font-weight:400;letter-spacing:0">${subtitle}</span>` : '');
+  
+  // Destroy previous modal chart
+  if (modalChart) { modalChart.destroy(); modalChart = null; }
+  
+  const modalCanvas = document.getElementById('chart-modal-canvas');
+  const originalCanvas = document.getElementById(canvasId);
+  const originalChart = Chart.getChart(originalCanvas);
+  
+  if (originalChart) {
+    // Deep clone config
+    const config = JSON.parse(JSON.stringify(originalChart.config));
+    config.options = config.options || {};
+    config.options.responsive = true;
+    config.options.maintainAspectRatio = false;
+    config.options.animation = { duration: 600 };
+    modalChart = new Chart(modalCanvas, config);
+  }
+  
+  document.getElementById('chart-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeChartModal(e) {
+  if (e && e.target && !e.target.closest('.chart-modal-inner') && e.target.id !== 'chart-modal') return;
+  document.getElementById('chart-modal').classList.remove('active');
+  document.body.style.overflow = '';
+  if (modalChart) { modalChart.destroy(); modalChart = null; }
+}
+
+function initChartZoom() {
+  document.querySelectorAll('.chart-card').forEach(card => {
+    const canvas = card.querySelector('canvas');
+    if (!canvas) return;
+    card.addEventListener('click', () => openChartModal(canvas.id));
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   buildYearChart();
   buildTypeChart();
@@ -671,5 +722,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollProgress();
   initCounters();
   initNav();
-  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+  initChartZoom();
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeLightbox(); closeChartModal(); }
+  });
 });
